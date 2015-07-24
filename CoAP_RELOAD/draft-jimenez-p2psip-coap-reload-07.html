@@ -1,0 +1,1081 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>A Constrained Application Protocol (CoAP) Usage for REsource LOcation And Discovery (RELOAD) </title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents"/>
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
+<link href="#rfc.section.2" rel="Chapter" title="2 Terminology"/>
+<link href="#rfc.section.3" rel="Chapter" title="3 Architecture"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 Registering CoAP URIs"/>
+<link href="#rfc.section.5" rel="Chapter" title="5 Lookup"/>
+<link href="#rfc.section.6" rel="Chapter" title="6 Forming a Direct Connection and Reading Data"/>
+<link href="#rfc.section.7" rel="Chapter" title="7 Caching Mechanisms"/>
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 ProxyCache"/>
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 SensorCache"/>
+<link href="#rfc.section.8" rel="Chapter" title="8 CoAP Usage Kinds Definition"/>
+<link href="#rfc.section.8.1" rel="Chapter" title="8.1 CoAP-REGISTRATION Kind"/>
+<link href="#rfc.section.8.2" rel="Chapter" title="8.2 CoAP-CACHING Kind"/>
+<link href="#rfc.section.9" rel="Chapter" title="9 Access Control Rules"/>
+<link href="#rfc.section.10" rel="Chapter" title="10 Security Considerations"/>
+<link href="#rfc.section.11" rel="Chapter" title="11 IANA Considerations"/>
+<link href="#rfc.section.11.1" rel="Chapter" title="11.1 CoAP-REGISTRATION Kind-ID"/>
+<link href="#rfc.section.11.2" rel="Chapter" title="11.2 CoAP-CACHING Kind-ID"/>
+<link href="#rfc.section.11.3" rel="Chapter" title="11.3 Access Control Policies"/>
+<link href="#rfc.references" rel="Chapter" title="12 References"/>
+<link href="#rfc.references.1" rel="Chapter" title="12.1 Normative References"/>
+<link href="#rfc.references.2" rel="Chapter" title="12.2 Informative References"/>
+<link href="#rfc.authors" rel="Chapter"/>
+
+
+  <meta name="generator" content="xml2rfc version 2.4.8 - http://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Jimenez, J., Ed., Lopez-Vega, J., Maenpaa, J., and G. Camarillo" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-jimenez-p2psip-coap-reload-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-2-3" />
+  <meta name="dct.abstract" content="This document defines a Constrained Application Protocol (CoAP) Usage for REsource LOcation And Discovery (RELOAD). The CoAP Usage provides the functionality to federate Wireless Sensor Networks (WSN) in a peer-to-peer fashion. The CoAP Usage for RELOAD allows CoAP nodes to store resources in a RELOAD peer-to-peer overlay, provides a lookup service, and enables the use of RELOAD overlay as a cache for sensor data. This functionality is implemented in the RELOAD overlay itself, without the use of centralized servers. The RELOAD AppAttach method is used to establish a direct connection between nodes through which CoAP messages are exchanged.  " />
+  <meta name="description" content="This document defines a Constrained Application Protocol (CoAP) Usage for REsource LOcation And Discovery (RELOAD). The CoAP Usage provides the functionality to federate Wireless Sensor Networks (WSN) in a peer-to-peer fashion. The CoAP Usage for RELOAD allows CoAP nodes to store resources in a RELOAD peer-to-peer overlay, provides a lookup service, and enables the use of RELOAD overlay as a cache for sensor data. This functionality is implemented in the RELOAD overlay itself, without the use of centralized servers. The RELOAD AppAttach method is used to establish a direct connection between nodes through which CoAP messages are exchanged.  " />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+  <td class="left">P2PSIP</td>
+  <td class="right">J. Jimenez, Ed.</td>
+</tr>
+<tr>
+  <td class="left">Internet-Draft</td>
+  <td class="right">Ericsson</td>
+</tr>
+<tr>
+  <td class="left">Intended status: Standards Track</td>
+  <td class="right">J. Lopez-Vega</td>
+</tr>
+<tr>
+  <td class="left">Expires: August 7, 2015</td>
+  <td class="right">University of Granada</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">J. Maenpaa</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">G. Camarillo</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">Ericsson</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">February 3, 2015</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">A Constrained Application Protocol (CoAP) Usage for REsource LOcation And Discovery (RELOAD) <br />
+  <span class="filename">draft-jimenez-p2psip-coap-reload-07</span></p>
+  
+  <h1 id="rfc.abstract">
+  <a href="#rfc.abstract">Abstract</a>
+</h1>
+<p>This document defines a Constrained Application Protocol (CoAP) Usage for REsource LOcation And Discovery (RELOAD). The CoAP Usage provides the functionality to federate Wireless Sensor Networks (WSN) in a peer-to-peer fashion. The CoAP Usage for RELOAD allows CoAP nodes to store resources in a RELOAD peer-to-peer overlay, provides a lookup service, and enables the use of RELOAD overlay as a cache for sensor data. This functionality is implemented in the RELOAD overlay itself, without the use of centralized servers. The RELOAD AppAttach method is used to establish a direct connection between nodes through which CoAP messages are exchanged.  </p>
+<h1 id="rfc.status">
+  <a href="#rfc.status">Status of This Memo</a>
+</h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on August 7, 2015.</p>
+<h1 id="rfc.copyrightnotice">
+  <a href="#rfc.copyrightnotice">Copyright Notice</a>
+</h1>
+<p>Copyright (c) 2015 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
+<li>2.   <a href="#rfc.section.2">Terminology</a></li>
+<li>3.   <a href="#rfc.section.3">Architecture</a></li>
+<li>4.   <a href="#rfc.section.4">Registering CoAP URIs</a></li>
+<li>5.   <a href="#rfc.section.5">Lookup</a></li>
+<li>6.   <a href="#rfc.section.6">Forming a Direct Connection and Reading Data</a></li>
+<li>7.   <a href="#rfc.section.7">Caching Mechanisms</a></li>
+<li>7.1.   <a href="#rfc.section.7.1">ProxyCache</a></li>
+<li>7.2.   <a href="#rfc.section.7.2">SensorCache</a></li>
+<li>8.   <a href="#rfc.section.8">CoAP Usage Kinds Definition</a></li>
+<li>8.1.   <a href="#rfc.section.8.1">CoAP-REGISTRATION Kind</a></li>
+<li>8.2.   <a href="#rfc.section.8.2">CoAP-CACHING Kind</a></li>
+<li>9.   <a href="#rfc.section.9">Access Control Rules</a></li>
+<li>10.   <a href="#rfc.section.10">Security Considerations</a></li>
+<li>11.   <a href="#rfc.section.11">IANA Considerations</a></li>
+<li>11.1.   <a href="#rfc.section.11.1">CoAP-REGISTRATION Kind-ID</a></li>
+<li>11.2.   <a href="#rfc.section.11.2">CoAP-CACHING Kind-ID</a></li>
+<li>11.3.   <a href="#rfc.section.11.3">Access Control Policies</a></li>
+<li>12.   <a href="#rfc.references">References</a></li>
+<li>12.1.   <a href="#rfc.references.1">Normative References</a></li>
+<li>12.2.   <a href="#rfc.references.2">Informative References</a></li>
+<li><a href="#rfc.authors">Authors' Addresses</a></li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
+<p id="rfc.section.1.p.1">This usage is intended for interconnected devices over a wide-area geographical coverage. For example in cases multiple Wireless Sensor Networks (WSN) that need to be fedetrated over some wider-area network. These would interconnect by means of nodes that are equiped with long range modules (2G, 3G, 4G) as well as short range ones (XBee, ZigBee, BLE, ...) Since these federations ocur over a wide area, distances between them are from the order of hundreds of meters to kilometers.  </p>
+<p id="rfc.section.1.p.2">Constained devices are likely to be heterogeneous when it comes to their radio layer, however we expect them to use a common application layer protocol, CoAP. The Constrained Application Protocol (CoAP) is a specialized web transfer protocol <a href="#RFC7252">[RFC7252]</a>. It realizes the Representational State Transfer (REST) architecture for the most constrained nodes, such as sensors and actuators. CoAP can be used not only between nodes on the same constrained network but also between constrained nodes and nodes on the Internet. The latter is possible since CoAP can be translated to Hypertext Transfer Protocol (HTTP) for integration with the web. Application areas of CoAP include different forms of M2M communication, such as home automation, construction, health care or transportation. Areas with heavy use of sensor and actuator devices that monitor and interact with the surrounding environment.  </p>
+<p id="rfc.section.1.p.3">As specified in <a href="#RFC6940">[RFC6940]</a> RELOAD is fundamentally an overlay network. Providing a layered architecture with plugable application layers than can use the underlaying forwarding, storage and lookup functionalities. <a href="#fig-arc">Figure 1</a> illustrates where the CoAP Usage is placed within the RELOAD architecture.  </p>
+<div id="rfc.figure.1"/>
+<div id="fig-arc"/>
+<pre>
+ 			Application
+
+        +-------+  
+        | CoAP  |   ...
+        | Usage |  
+        +-------+  
+    ------------------------------------ Messaging Service 
+    +------------------+     +---------+
+    |     Message      |&lt;---&gt;| Storage |
+    |    Transport     |     +---------+
+    +------------------+           ^
+           ^       ^               |
+           |       v               v
+           |     +-------------------+
+           |     |    Topology       |
+           |     |    Plug-in        |
+           |     +-------------------+
+           |         ^
+           v         v
+        +------------------+
+        |  Forwarding &amp;    |
+        | Link Management  |
+        +------------------+
+    ------------------------------------ Overlay Link Service 
+         +-------+  +-------+
+         |TLS    |  |DTLS   |  ...
+         |Overlay|  |Overlay|
+         |Link   |  |Link   |
+         +-------+  +-------+
+
+</pre>
+<p class="figure">Figure 1: Architecture</p>
+<p id="rfc.section.1.p.4">The CoAP Usage involves three basic functions: </p>
+<p id="rfc.section.1.p.5">Registration: CoAP nodes can use the RELOAD data storage functionality to store a mapping from their CoAP URI to their Node-ID in the overlay, and to retrieve the Node-IDs of other nodes.  </p>
+<p id="rfc.section.1.p.6">Lookup: Once a CoAP node has identified the Node-ID for an URI it wishes to retrieve, it can use the RELOAD message routing system to set up a connection which can be used to exchange CoAP messages.  </p>
+<p id="rfc.section.1.p.7">Caching: Nodes can use the RELOAD overlay as a caching mechanism for their sensor information. This is specially useful for battery constrained nodes that can make their data available in the cache provided by the overlay while in sleep mode.  </p>
+<p id="rfc.section.1.p.8">For instance, a CoAP proxy (See <a href="#sec-arc">Section 3</a>) could register its Node-ID (e.g. "9996172") and a list of sensors (e.g. "/temperature-1; ./temperature-2; ./temperature-3") under its URI (e.g. "coap://overlay-1.com/proxy-1/").  </p>
+<p id="rfc.section.1.p.9">When a node wants to discover the values associated with that URI, it queries the overlay for "coap://overlay-1.com/proxy-1/" and gets back the Node-ID of the proxy and the list of its associated sensors. The requesting node can then use the RELOAD overlay to establish a direct connection with the proxy and to read sensor values.  </p>
+<p id="rfc.section.1.p.10">Moreover, the CoAP proxy can store the sensor information in the overlay. In this way information can be retrieved directly from the overlay without performing a direct connection to the storing proxy.  </p>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#terminology" id="terminology">Terminology</a></h1>
+<p id="rfc.section.2.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 <a href="#RFC2119">[RFC2119]</a>.  </p>
+<p id="rfc.section.2.p.2">We use the terminology and definitions from the RELOAD Base Protocol <a href="#RFC6940">[RFC6940]</a> extensively in this document. Some of those concepts are further described in the Concepts and Terminology for Peer to Peer SIP <a href="#I-D.ietf-p2psip-concepts">[I-D.ietf-p2psip-concepts]</a> document.  </p>
+<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#sec-arc" id="sec-arc">Architecture</a></h1>
+<p id="rfc.section.3.p.1">In our architecture we extend the different nodes present in RELOAD (Peer, Client) and add support for sensor devices or other constrained devices. <a href="#fig-topo">Figure 2</a> illustrates our architecture. The different nodes, according to their functionality are : </p>
+
+<dl>
+  <dt>Client</dt>
+  <dd style="margin-left: 8"><br/> Devices that are capable of participating in a RELOAD overlay as client nodes, that is they do not route messages in the overlay.</dd>
+  <dt>Router</dt>
+  <dd style="margin-left: 8"><br/> Devices that are members of (i.e., peers in) a RELOAD overlay and capable of forwarding RELOAD messages following a path through the overlay to the destination. </dd>
+  <dt>Sensor</dt>
+  <dd style="margin-left: 8"><br/> Devices capable of measuring a physical quantity. Sensors usually acquire quantifiable information about their surrounding environment such as: temperature, humidity, electric current, moisture, radiation, and so on.</dd>
+  <dt>Actuator</dt>
+  <dd style="margin-left: 8"><br/> Devices capable of interacting and affecting their environment such as: electrical motors, pneumatic actuators, electric switches, and so on.</dd>
+  <dt>Proxy</dt>
+  <dd style="margin-left: 8"><br/> Devices having sufficient resources to run RELOAD either as client or peer. These devices are located at the edge of the sensor network and, in case of Wireless Sensor Networks (WSN), act as coordinators of the network.</dd>
+</dl>
+
+<p> </p>
+<p id="rfc.section.3.p.2">Physical devices can have one or several of the previous functional roles. According to the functionalities that are present in each of the nodes, they can be: </p>
+
+<dl>
+  <dt>Constrained Node</dt>
+  <dd style="margin-left: 8"><br/> A Constrained Node (CN) is a node with limited computational capabilities. CN devices belong to classes of at least C1 and C2 devices as defined in <a href="#RFC7228">[RFC7228]</a>, their main constraint being the implementation of the CoAP protocol. If the CN is wireless then it will be part of a Low-Rate Wireless Personal Area Network (LR-WPAN), also termed Low-Power and Lossy Network (LLN). Lastly, devices will usually be in sleep mode in order to prevent battery drain, and will not communicate during those periods. A CN is NOT part of the RELOAD overlay, therefore it can not act as a client, router nor proxy. A CN is always either a either a Sensor or an Actuator. In the latter case the node is often connected to a continuous energy power supply.</dd>
+  <dt>RELOAD Node</dt>
+  <dd style="margin-left: 8"><br/> A Reload Node (RN) MUST implement the client functionality in the Overlay. Additionally the node will often be a full RELOAD peer. A RN may also be sensor or actuator since it can have those devices connected to it.</dd>
+  <dt>Proxy Node</dt>
+  <dd style="margin-left: 8"><br/> A Proxy Node (PN) MUST implement the RN functionality and act as a sink for the LR-WPAN network. The PN connects the short range Wireless Network to the Wide Area Network or the Internet.</dd>
+</dl>
+
+<p> </p>
+<div id="rfc.figure.2"/>
+<div id="fig-topo"/>
+<pre>
+		             +------+
+		             |      |
+		    +--------+  RN  +---------+
+		    |        |      |         |
+		+---+--+     +------+      +--+---+
+		|      |                   |      |
+		|  RN  |                   |  RN  |
+		|      |                   |      |   +------------+
+		+---+--+                   +--+---+   |        WSN |
+		    |         RELOAD          |       |     +----+ |
+		    |         OVERLAY         |       | +---+ CN | |
+		+---+--+                   +--+---+   | |   +----+ |
+		|      |                   |      +-----+          |
+		|  RN  |                   |  PN  |   |            |
+		|      |                   |      +-----+          |
+		+---+--+     +------+      +--+---+   | |   +----+ |
+		    |        |      |         |       | +---+ CN | |
+		    +--------+  PN  +---------+       |     +----+ |
+		             |      |                 +------------+
+		             +-+--+-+
+		               |  |
+		      +--------|--|--------+
+		      |     +--+  +--+     |
+		      |     |        |     |
+		      |  +--+-+    +-+--+  |
+		      |  | CN |    | CN |  |
+		      |  +----+    +----+  |
+		      |                WSN |
+		      +--------------------+
+
+</pre>
+<p class="figure">Figure 2: Overlay Topology</p>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#sec-reg-uri" id="sec-reg-uri">Registering CoAP URIs</a></h1>
+<p id="rfc.section.4.p.1">CoAP URIs are typically resolved using a DNS. When CoAP is needed in a RELOAD environment, URI resolution is provided by the overlay as a whole. Instead of registering a URI, a peer stores a CoAPRegistration structure under a hash of its own URI. This uses the CoAP REGISTRATION Kind-ID, which is formally defined in <a href="#sec-dir">Section 6</a>, and that uses a DICTIONARY data model.  </p>
+<p id="rfc.section.4.p.2">As an example, if a CoAP proxy that is located in an overlay overlay-1.com using a Node-ID "9996172" wants to register three different temperature sensors to the URI "coap://overlay-1.com/proxy-1/.well-known/", it might store the following mapping in the overlay: </p>
+<pre>
+	Resource-ID = h(coap://overlay-1.com/proxy-1/.well-known/) 
+	KEY =	 9996172,
+	VALUE = {./temperature-1;
+		./temperature-2;
+		./temperature-3}
+    </pre>
+<p id="rfc.section.4.p.3">Note that the Resource-ID stored in the overlay is calculated as hash over the URI (i.e. h(URI)), for instance SHA-1 in RELOAD.  </p>
+<p id="rfc.section.4.p.4">This would inform any other node performing a lookup for the previous URI "coap://overlay-1.com/proxy-1/.well-known" that the Node-ID value for proxy-1 is "9996172". In addition, this mapping provides relevant information as to the number of sensors (CNs) and the URI path to connect to them using CoAP.  </p>
+<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#sec-ren" id="sec-ren">Lookup</a></h1>
+<p id="rfc.section.5.p.1">The RELOAD overlay supports a rendezvous system that can be used for the lookup of other CoAP nodes. This is done by fetching mapping information between CoAP URIs and Node-IDs.  </p>
+<p id="rfc.section.5.p.2">As an example, if a node RN located in the overlay overlay-1.com wishes to read which resources are served at a RN with URI coap://overlay-1.com/proxy-1/, it performs a fetch in the overlay. The Resource-ID used in this fetch is a SHA-1 hash over the URI "coap://overlay-1.com/proxy-1/.well-known/".  </p>
+<p id="rfc.section.5.p.3">After this fetch request, the overlay will return the following result: </p>
+<pre>
+	Resource-ID = h(coap://overlay-1.com/proxy-1/.well-known/) 
+	KEY =	 9996172,
+	VALUE = { ./temperature-1; 
+		  ./temperature-2; 
+		  ./temperature-3}
+  	    </pre>
+<p id="rfc.section.5.p.4">The obtained KEY is the Node-ID of the RN responsible of this KEY/VALUE pair. The VALUE is the set of URIs necessary to read data from the CNs associated with the RN.  </p>
+<p id="rfc.section.5.p.5">Using the RELOAD DICTIONARY model allows for multiple nodes to perform a store to the same Resource-ID. This feature allows to fetch multiple RNs that host CNs of the same class.  </p>
+<p id="rfc.section.5.p.6">As an example, a fetch to the URI "coap://overlay-1.com/temperature/.well-known/" could return the following results: </p>
+<pre>
+	Resource-ID = h(coap://overlay-1.com/temperature/.well-known/)
+	KEY =	 9992323,
+	VALUE = { ./temperature} 
+
+	KEY =	 9996172,
+	VALUE = { ./temperature-1; 
+	 	  ./temperature-2; 
+		  ./temperature-3}
+
+	KEY =	9996173,
+	VALUE = { ./temp-a;
+		  ./temp-b}
+  	    </pre>
+<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#sec-dir" id="sec-dir">Forming a Direct Connection and Reading Data</a></h1>
+<p id="rfc.section.6.p.1">Once a RN (e.g., node-A) has obtained the lookup information for a node in the overlay (e.g., proxy-1), it can directly connect to that node. This is performed by sending an AppAttach request to the Node-ID obtained during the lookup process.  </p>
+<p id="rfc.section.6.p.2">After the AppAttach negotiation, node-A can access to the values of the CNs at proxy-1 using the URIs obtained during the lookup. Following the example in Section 5, the URIs for accessing to the CNs at proxy-1 would be: </p>
+<pre>
+	coap://overlay-1.com/proxy-1/temperature-1
+	coap://overlay-1.com/proxy-1/temperature-2
+	coap://overlay-1.com/proxy-1/temperature-3
+    </pre>
+<p/>
+<p id="rfc.section.6.p.4">Note that the ".well-known" string has been removed from the URIs, as this is only used during CNs discovery. <a href="#fig-sample">Figure 3</a> shows a sample of a node reading humidity data.  </p>
+<div id="rfc.figure.3"/>
+<div id="fig-sample"/>
+<pre>
+
++---+         +-----+     +---------+    +-----+          +---+
+|CNA|         | PNA |     | OVERLAY |    | PNB |          |CNB|
++---+         +-----+     +---------+    +-----+          +---+
+ |               |             |            |                |
+ | .COAP CON GET |             |            |                |
+ |  /humidity    | 2.RELOAD    |            |                |
+ |+-------------&gt;| FetchReq    |            |                |
+ |               |+-----------&gt;|            |                |
+ |               |             |            |                |
+ |               | 3.RELOAD    |            |                |
+ |               | FetchAns    |            |                |
+ |               |&lt;-----------+|            |                |
+ |               |             |            |                |
+ |               | 4.RELOAD    |            |                |
+ |               |  AppAttach  |            |                |
+ |               |+-----------&gt;|            |                |
+ |               |             | 5.RELOAD   |                |
+ |               |             | AppAttach  |                |
+ |               |             |+----------&gt;|                |
+ |               |             |            |                |
+ |               |             | 6.RELOAD   |                |
+ |               | 7.RELOAD    |AppAttachAns|                |
+ |               |AppAttachAns |&lt;----------+|                |
+ |               |&lt;-----------+|            |                |
+ |               |             |            |                |
+ |               |                          |                |
+ |               |   ---------------------  |                |
+ |               | /        8.ICE          \|                |
+ |               | \   connectivity checks /|                |
+ |               |   ---------------------  |                |
+ |               |                          |                |
+ |               |      9.CoAP CON          |                |
+ |               |        GET humidity      |                |
+ |               |+------------------------&gt;|                |
+ |               |                          | 10.CoAP CON    |
+ |               |                          |   GET humidity |
+ |               |                          |+--------------&gt;|
+ |               |                          | 11.CoAP        |
+ |               |     12.CoAP              |    ACK 200     |
+ |  12.CoAP      |        ACK 200           |&lt;--------------+|
+ |     ACK 200   |&lt;------------------------+|                |
+ |&lt;-------------+|                          |                |
+ |               |                          |                |
+
+</pre>
+<p class="figure">Figure 3: An Example of a Message Sequence</p>
+<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#sec-cach" id="sec-cach">Caching Mechanisms</a></h1>
+<p id="rfc.section.7.p.1">The CoAP protocol itself supports the caching of sensor information in order to reduce the response time and network bandwidth consumption of future, equivalent requests. CoAP caching is specified in the Section 5 of the CoAP RFC <a href="#RFC7228">[RFC7228]</a>, it consists on reusing stored responses when new requests arrives. This type of storage is done in CoAP proxies.  </p>
+<p id="rfc.section.7.p.2">This CoAP usage for RELOAD proposes an additional caching mechanism for storing sensor information directly in the overlay. In order to do so, it is necessary to define how the data should be stored. Such caching mechanism is primarily intended for CNs with sensor capabilities, not for RN sensors. This is due to the battery constrains of CNs, forcing them to stay in sleep mode for long periods of time.  </p>
+<p id="rfc.section.7.p.3">Whenever a CN wakes up, it sends the most recent data from its sensors to its proxy (PN), which stores the data in the overlay using a RELOAD StoredData structure defined in Section 6 of the RELOAD RFC <a href="#RFC6940">[RFC6940]</a>. We use the StoredDataValue structure defined in Section 6.2 of the RELOAD RFC, in particular we use the SingleValue format type to store the cached values in the overlay.  From that structure length, storage_time,  lifetime and Signature are used in the same way. The only difference is DataValue which in our case can be either a ProxyCache or a SensorCache: </p>
+<pre>
+enum { reserved (0), proxy_cache(1), sensor_cache(2), (255) }
+	            CoAPCachingType;
+struct {
+	CoAPCachingType coap_caching_type;
+
+	select(coap_caching_type) {
+		case proxy_cache:	ProxyCache proxy_cache_entry;
+		case sensor_cache:	SensorCache sensor_cache_entry;
+		/* extensions */
+
+	}	
+} CoAPCaching;
+</pre>
+<p/>
+<h1 id="rfc.section.7.1"><a href="#rfc.section.7.1">7.1.</a> ProxyCache</h1>
+<p id="rfc.section.7.1.p.1">ProxyCache is meant to store values and sensor information (e.g. inactivity time) for all the sensors associated with a certain proxy, as well as their CoAP URIs. On the other hand, SensorCache is used for storing the information and cached value of only one sensor (CoAP URI is not necessary, as is the same as the one used for generating the Resource-ID associated to that SensorCache entry).  </p>
+<pre>
+struct {
+	Node-ID		Node_ID;
+	uint32 		length;
+	SensorEntry	sensors[length];
+} ProxyCache;
+</pre>
+<p id="rfc.section.7.1.p.2">ProxyCache contains the fields Node-ID and series of SensorEntry types.  </p>
+<p/>
+
+<dl>
+  <dt>Node-D</dt>
+  <dd style="margin-left: 8"><br/> The Node-ID of the Proxy Node (PN) responsible for different sensor devices;</dd>
+  <dt>length</dt>
+  <dd style="margin-left: 8"><br/> The length of the rest of the structure;</dd>
+  <dt>Sensor-Entry</dt>
+  <dd style="margin-left: 8"><br/> List of sensors in the form of SensorEntry types;</dd>
+</dl>
+
+<p> </p>
+<pre>
+struct {
+	opaque		coap_uri;
+	SensorInfo  sensor_info;
+	uint32		length;
+	SensorValue	sensor_value[length];
+} SensorEntry;
+</pre>
+<p id="rfc.section.7.1.p.4">SensorEntry contains the coap_uri, sensor_info and a series of SensorValue types.  </p>
+<p/>
+
+<dl>
+  <dt>coap_uri</dt>
+  <dd style="margin-left: 8"><br/>CoAP name of the sensor device in question;</dd>
+  <dt>sensor_info</dt>
+  <dd style="margin-left: 8"><br/>contains relevant sensor information;</dd>
+  <dt>length</dt>
+  <dd style="margin-left: 8"><br/>The length of the rest of the structure;</dd>
+  <dt>sensor_value</dt>
+  <dd style="margin-left: 8"><br/>contains a list of values stored by the sensor;</dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.7.2"><a href="#rfc.section.7.2">7.2.</a> SensorCache</h1>
+<pre>
+struct {
+	Node-ID		Node_ID;
+	SensorInfo	sensor_info;
+	uint32		length;
+	SensorValue	sensor_value[length];
+} SensorCache;
+</pre>
+<p id="rfc.section.7.2.p.1">SensorCache: contains the information related to one sensor.  </p>
+<p/>
+
+<dl>
+  <dt>Node_ID</dt>
+  <dd style="margin-left: 8"><br/>identifies the Node-ID of the Proxy Node responsible for the sensor;</dd>
+  <dt>sensor_info</dt>
+  <dd style="margin-left: 8"><br/>contains relevant sensor information;</dd>
+  <dt>length</dt>
+  <dd style="margin-left: 8"><br/>The length of the rest of the structure;</dd>
+  <dt>sensor_value</dt>
+  <dd style="margin-left: 8"><br/>contains a list of values stored by the sensor;</dd>
+</dl>
+
+<p> </p>
+<pre>
+struct {
+	uint32		sensor_type;
+	uint32		duration_of_inactivity;
+	uint32		last_awake;
+	
+	/* extensions */
+	
+} SensorInfo;
+</pre>
+<p id="rfc.section.7.2.p.3">SensorInfo contains relevant sensor information, such as sensor_type, duration_of_inactivity and c fields.  </p>
+<p/>
+
+<dl>
+  <dt>sensor_type</dt>
+  <dd style="margin-left: 8"><br/>contains the type of a resource as defined in <a href="#RFC6690">[RFC6690]</a>, for example temperature, luminosity, etc.; </dd>
+  <dt>duration_of_inactivity</dt>
+  <dd style="margin-left: 8"><br/>contains the sleep pattern (if any) that the sensor device follows, specified in seconds;</dd>
+  <dt>last_awake</dt>
+  <dd style="margin-left: 8"><br/>indicates the last time that the sensor was awake represented as the number of milliseconds elapsed since midnight Jan 1, 1970 UTC not counting leap seconds. This will have the same values for seconds as standard UNIX time or POSIX time;</dd>
+</dl>
+
+<p> </p>
+<pre>
+struct {
+	uint32		measurement_time;
+	uint32		lifetime;
+	opaque		value;
+	
+	/* extensions */
+	
+} SensorValue;
+</pre>
+<p id="rfc.section.7.2.p.5">SensorValue contains the measurement_time, lifetime and value.  </p>
+<p/>
+
+<dl>
+  <dt>measurement_time</dt>
+  <dd style="margin-left: 8"><br/>indicates the moment in which the measure was taken represented as the number of milliseconds elapsed since midnight Jan 1, 1970 UTC not counting leap seconds;</dd>
+  <dt>lifetime</dt>
+  <dd style="margin-left: 8"><br/>indicates the validity time of that measured value in milliseconds since measurement_time;</dd>
+  <dt>value</dt>
+  <dd style="margin-left: 8"><br/>indicates the actual value measured. It can be of different types (integer, long, string) therefore opaque has been used;</dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#sec-kind" id="sec-kind">CoAP Usage Kinds Definition</a></h1>
+<p id="rfc.section.8.p.1">This section defines the CoAP-REGISTRATION and CoAP-CACHING kinds.  </p>
+<h1 id="rfc.section.8.1"><a href="#rfc.section.8.1">8.1.</a> CoAP-REGISTRATION Kind</h1>
+<p/>
+
+<dl>
+  <dt>Kind IDs</dt>
+  <dd style="margin-left: 8"><br/> The Resource Name for the CoAP-REGISTRATION Kind-ID is the CoAP URI. The data stored is a CoAPRegistration, which contains a set of CoAP URIs.  </dd>
+  <dt>Data Model</dt>
+  <dd style="margin-left: 8"><br/> The data model for the CoAP-REGISTRATION Kind-ID is dictionary. The dictionary key is the Node-ID of the storing RN. This allows each RN to store a single mapping.  </dd>
+  <dt>Access Control</dt>
+  <dd style="margin-left: 8"><br/> URI-NODE-MATCH. The "coap:" prefix needs to be  removed from the COAP URI before matching. See <a href="#sec-rules">Section 9</a>.  </dd>
+</dl>
+
+<p> </p>
+<pre>
+struct {
+	Node-ID Node_ID;
+	uint16 coap_uris_length;
+	opaque coap_uris (0..2^16-1);
+} CoAPRegistration;		
+</pre>
+<p id="rfc.section.8.1.p.2">Data stored under the COAP-REGISTRATION kind is of type CoAPRegistration, defined below.  </p>
+<h1 id="rfc.section.8.2"><a href="#rfc.section.8.2">8.2.</a> CoAP-CACHING Kind</h1>
+<p/>
+
+<dl>
+  <dt>KindIDs</dt>
+  <dd style="margin-left: 8"><br/>	The Resource Name for the CoAP-CACHING Kind-ID is the CoAP URI. The data stored is a CoAPCaching, which contains a cached value. </dd>
+  <dt>Data Model</dt>
+  <dd style="margin-left: 8"><br/>The data model for the CoAP-CACHING Kind-ID is single value.  </dd>
+  <dt>Access Control</dt>
+  <dd style="margin-left: 8"><br/>URI-MATCH. The "coap:" prefix needs to be  removed from the COAP URI before matching. See <a href="#sec-rules">Section 9</a>.  </dd>
+</dl>
+
+<p> </p>
+<p id="rfc.section.8.2.p.2">Data stored under the CoAP-CACHING kind is of type CoAPCaching, defined in <a href="#sec-cach">Section 7</a>.  </p>
+<h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#sec-rules" id="sec-rules">Access Control Rules</a></h1>
+<p id="rfc.section.9.p.1">As specified in RELOAD base <a href="#RFC6940">[RFC6940]</a>, every kind which is storable in an overlay must be associated with an access control policy.  This policy defines whether a request from a given node to operate on a given value should succeed or fail. Usages can define any access control rules they choose, including publicly writable values.  </p>
+<p id="rfc.section.9.p.2">CoAP Usage for RELOAD requires an access control policy	that allows multiple nodes in the overlay read and write access. This access is for registering and caching information using CoAP URIs as identifiers.  Therefore, none of the access control policies specified in RELOAD base are sufficient .  </p>
+<p id="rfc.section.9.p.3">This document defines two access control policies , called URI-MATCH and URI-NODE-MATCH. In URI-MATCH policy, a given value MUST be written and overwritten if and only if the signer's certificate has an associated URI which canonicalized form hashes (using the hash function for the overlay) to the Resource-ID for the resource.  </p>
+<p id="rfc.section.9.p.4">In URI-NODE-MATCH policy, a given value MUST be written and overwritten if and only if the signer's certificate has an associated URI which canonicalized form hashes (using the hash function for the overlay) to the Resource-ID for the resource. In addition, the dictionary key MUST be equal to the Node-ID in the certificate and that Node-ID MUST be the one indicated in the SignerIdentity value cert_hash.  </p>
+<p id="rfc.section.9.p.5">These Access Control Policies are specified for IANA in Section <a href="#sec-access-control">Section 11.3</a>.  </p>
+<h1 id="rfc.section.10"><a href="#rfc.section.10">10.</a> <a href="#sec-security" id="sec-security">Security Considerations</a></h1>
+<p id="rfc.section.10.p.1">The security considerations of RELOAD <a href="#RFC6940">[RFC6940]</a> and CoAP <a href="#RFC7228">[RFC7228]</a> apply to this specification. RELOAD's security model is based on public key certificates, which are used for signing messages and stored objects. At the connection level RELOAD can use either TLS or DTLS. In the case of CoAP, several security modes have been defined. Implementations of this specification MUST follow all the security-related rules specified in the RELOAD <a href="#RFC6940">[RFC6940]</a> and CoAP <a href="#RFC7228">[RFC7228]</a> specifications.  </p>
+<p id="rfc.section.10.p.2">Additionally, in RELOAD every kind which is storable in an overlay must be associated with an access control policy. This document specifies two new access control policies, which are specified in Section <a href="#sec-rules">Section 9</a>. These policies cover the most typical deployment scenarios.  </p>
+<p id="rfc.section.10.p.3">During the phase of registration and lookup, security considerations relevant to RELOAD apply. The caching mechanism specified in this draft is additional to the caching already done in CoAP. Access control is handled by the RELOAD overlay, where the peer storing the data is responsible of validating the signature on the data being stored.  </p>
+<h1 id="rfc.section.11"><a href="#rfc.section.11">11.</a> <a href="#sec-iana" id="sec-iana">IANA Considerations</a></h1>
+<h1 id="rfc.section.11.1"><a href="#rfc.section.11.1">11.1.</a> CoAP-REGISTRATION Kind-ID</h1>
+<p id="rfc.section.11.1.p.1">This document introduces one additional data Kind-ID to the "RELOAD Data Kind-ID" Registry: </p>
+<pre>
+				+-------------------+------------+----------+
+				| Kind              |    Kind-ID |      RFC |
+				+-------------------+------------+----------+
+				| CoAP-REGISTRATION |        105 | RFC-AAAA |
+				+-------------------+------------+----------+	
+			</pre>
+<p/>
+<p id="rfc.section.11.1.p.3">This Kind-ID was defined in <a href="#sec-reg-uri">Section 4</a>.  </p>
+<h1 id="rfc.section.11.2"><a href="#rfc.section.11.2">11.2.</a> CoAP-CACHING Kind-ID</h1>
+<p id="rfc.section.11.2.p.1">This document introduces one additional data Kind-ID to the "RELOAD Data Kind-ID" Registry: </p>
+<pre>
+				+--------------+------------+----------+
+				| Kind         |    Kind-ID |      RFC |
+				+--------------+------------+----------+
+				| CoAP-CACHING |        106 | RFC-AAAA |
+				+--------------+------------+----------+
+			</pre>
+<p/>
+<p id="rfc.section.11.2.p.3">This Kind-ID was defined in <a href="#sec-reg-uri">Section 4</a>.  </p>
+<h1 id="rfc.section.11.3"><a href="#rfc.section.11.3">11.3.</a> <a href="#sec-access-control" id="sec-access-control">Access Control Policies</a></h1>
+<p id="rfc.section.11.3.p.1">IANA SHALL create a "CoAP Usage for RELOAD Access Control Policy" Registry. Entries in this registry are strings denoting access control policies, as described in Section 8.1. New entries in this registry SHALL be registered via RFC 5226 <a href="#RFC5226">[RFC5226]</a>. Standards Action. The initial contents of this registry are: </p>
+<pre>	
+				+-----------------+----------+
+				| Access Policy   |      RFC |
+				+-----------------+----------+
+				| URI-NODE-MATCH  | RFC-AAAA |
+				| URI-MATCH       | RFC-AAAA |
+				+-----------------+----------+
+			</pre>
+<p/>
+<p id="rfc.section.11.3.p.3">This access control policy was described in <a href="#sec-rules">Section 9</a>.  </p>
+<h1 id="rfc.references"><a href="#rfc.references">12.</a> References</h1>
+<h1 id="rfc.references.1"><a href="#rfc.references.1">12.1.</a> Normative References</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="reference">
+        <b id="RFC2119">[RFC2119]</b>
+      </td>
+      <td class="top"><a href="mailto:sob@harvard.edu" title="Harvard University">Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, March 1997.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC6690">[RFC6690]</b>
+      </td>
+      <td class="top"><a>Shelby, Z.</a>, "<a href="http://tools.ietf.org/html/rfc6690">Constrained RESTful Environments (CoRE) Link Format</a>", RFC 6690, August 2012.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC6940">[RFC6940]</b>
+      </td>
+      <td class="top"><a>Jennings, C.</a>, <a>Lowekamp, B.</a>, <a>Rescorla, E.</a>, <a>Baset, S.</a> and <a>H. Schulzrinne</a>, "<a href="http://tools.ietf.org/html/rfc6940">REsource LOcation And Discovery (RELOAD) Base Protocol</a>", RFC 6940, January 2014.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC7252">[RFC7252]</b>
+      </td>
+      <td class="top"><a>Shelby, Z.</a>, <a>Hartke, K.</a> and <a>C. Bormann</a>, "<a href="http://tools.ietf.org/html/rfc7252">The Constrained Application Protocol (CoAP)</a>", RFC 7252, June 2014.</td>
+    </tr>
+  </tbody>
+</table>
+<h1 id="rfc.references.2"><a href="#rfc.references.2">12.2.</a> Informative References</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="reference">
+        <b id="I-D.ietf-p2psip-concepts">[I-D.ietf-p2psip-concepts]</b>
+      </td>
+      <td class="top"><a>Bryan, D.</a>, <a>Matthews, P.</a>, <a>Shim, E.</a>, <a>Willis, D.</a> and <a>S. Dawkins</a>, "<a href="http://tools.ietf.org/html/draft-ietf-p2psip-concepts-06">Concepts and Terminology for Peer to Peer SIP</a>", Internet-Draft draft-ietf-p2psip-concepts-06, June 2014.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC5226">[RFC5226]</b>
+      </td>
+      <td class="top"><a>Narten, T.</a> and <a>H. Alvestrand</a>, "<a href="http://tools.ietf.org/html/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>", BCP 26, RFC 5226, May 2008.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC7228">[RFC7228]</b>
+      </td>
+      <td class="top"><a>Bormann, C.</a>, <a>Ersue, M.</a> and <a>A. Keranen</a>, "<a href="http://tools.ietf.org/html/rfc7228">Terminology for Constrained-Node Networks</a>", RFC 7228, May 2014.</td>
+    </tr>
+  </tbody>
+</table>
+<h1 id="rfc.authors">
+  <a href="#rfc.authors">Authors' Addresses</a>
+</h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Jaime Jimenez</span> (editor)
+	  <span class="n hidden">
+		<span class="family-name">Jimenez</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ericsson</span>
+	<span class="adr">
+	  <span class="vcardline">Hirsalantie 11</span>
+
+	  <span class="vcardline">
+		<span class="locality">Jorvas</span>,  
+		<span class="region"></span>
+		<span class="code">02420</span>
+	  </span>
+	  <span class="country-name vcardline">Finland</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:jaime.jimenez@ericsson.com">jaime.jimenez@ericsson.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Jose M. Lopez-Vega</span> 
+	  <span class="n hidden">
+		<span class="family-name">Lopez-Vega</span>
+	  </span>
+	</span>
+	<span class="org vcardline">University of Granada</span>
+	<span class="adr">
+	  <span class="vcardline">CITIC UGR Periodista Rafael Gomez Montero 2</span>
+
+	  <span class="vcardline">
+		<span class="locality">Granada</span>,  
+		<span class="region"></span>
+		<span class="code">18071</span>
+	  </span>
+	  <span class="country-name vcardline">Spain</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:jmlvega@ugr.es">jmlvega@ugr.es</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Jouni Maenpaa</span> 
+	  <span class="n hidden">
+		<span class="family-name">Maenpaa</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ericsson</span>
+	<span class="adr">
+	  <span class="vcardline">Hirsalantie 11</span>
+
+	  <span class="vcardline">
+		<span class="locality">Jorvas</span>,  
+		<span class="region"></span>
+		<span class="code">02420</span>
+	  </span>
+	  <span class="country-name vcardline">Finland</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:jouni.maenpaa@ericsson.com">jouni.maenpaa@ericsson.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Gonzalo Camarillo</span> 
+	  <span class="n hidden">
+		<span class="family-name">Camarillo</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ericsson</span>
+	<span class="adr">
+	  <span class="vcardline">Hirsalantie 11</span>
+
+	  <span class="vcardline">
+		<span class="locality">Jorvas</span>,  
+		<span class="region"></span>
+		<span class="code">02420</span>
+	  </span>
+	  <span class="country-name vcardline">Finland</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:gonzalo.camarillo@ericsson.com">gonzalo.camarillo@ericsson.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
